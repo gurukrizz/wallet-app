@@ -1,3 +1,17 @@
-<p>
-  login works!
-</p>
+<div class="login-container">
+  <div class="login-outer">
+    <div class="login-title">
+      <span class="login-title-text">WALLET</span>
+    </div>
+    <form class="login-form">
+      <input type="text" #username placeholder="USERNAME" class="input-login">
+      <input type="password" #password placeholder="PASSWORD" class="input-login">
+      <button type="submit" (click)="onLogin(username.value, password.value)" class="login-button">LOGIN</button>
+      <div class="login-forget-password">
+        <a href="#">Have you forgotten your password ?</a>
+      </div>
+
+    </form>
+  </div>
+
+</div>

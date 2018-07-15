@@ -1,4 +1,5 @@
 export class Payment {
+    id: number;
     paymentid: number;
     date: string;
     merchantname: string;

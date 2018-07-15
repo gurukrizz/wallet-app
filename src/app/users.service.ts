@@ -55,11 +55,11 @@ export class UserService {
 
 
   /** GET users by user is. Will 404 if id not found */
-  getUser(userid: string): Observable<User> {
-    const url = `${this.usersUrl}/${userid}`;
+  getUser(username: string): Observable<User> {
+    const url = `${this.usersUrl}/${username}`;
     return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched User id=${userid}`)),
-      catchError(this.handleError<User>(`getHero id=${userid}`))
+      tap(_ => this.log(`fetched User nam=${username}`)),
+      catchError(this.handleError<User>(`getHero name=${username}`))
     );
   }
 
