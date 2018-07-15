@@ -17,6 +17,10 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(username, password): void {
+    /*
+    * We are saving the user id in the local storage to check user is authenticated to access the information.
+    * We are saving the user id instead a security token because the original user auth is done via mock data.
+    */
     this.userService.getUser(username).subscribe(
       (user) => {
         if (user.password === password){

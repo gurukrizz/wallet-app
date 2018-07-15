@@ -13,6 +13,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * This function is to logout of app after deleting the useris from the localstorage.
+   * Since we have to login inorder to access the content of our app we can set logout direclty.
+   */
   onLogout(): void{
     if (localStorage.getItem('userId')){
       localStorage.removeItem('userId');
