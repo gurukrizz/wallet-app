@@ -14,7 +14,7 @@ export class CardsComponent implements OnInit {
   public cards: Card[];
   public selectedCard: Card;
   public showSelectedCard = false;
-  public selectedCardPayments: Payment[];
+  public selectedCardPayments: Payment[] = [];
   public tableColumnSettings: TableColumnSetting[];
 
   constructor(
@@ -33,6 +33,7 @@ export class CardsComponent implements OnInit {
   onSelectedCardChange(oEvent): void {
     if (oEvent.target.value === "selectCard") {
       this.showSelectedCard = false;
+      this.selectedCardPayments = [];
     } else {
       this.cardsService.getCard(oEvent.target.value).subscribe(card => {
         this.selectedCard = card;
@@ -41,27 +42,32 @@ export class CardsComponent implements OnInit {
           {
             columnkey: "paymentid",
             columnsorder: 1,
-            columntitle: "transaction number"
+            columntitle: "transaction number",
+            sortorder: 'none'
           },
           {
             columnkey: "merchantname",
             columnsorder: 2,
-            columntitle: "merchant name"
+            columntitle: "merchant name",
+            sortorder: 'none'
           },
           {
             columnkey: "amountpaid",
             columnsorder: 3,
-            columntitle: "amount"
+            columntitle: "amount",
+            sortorder: 'none'
           },
           {
             columnkey: "currencycode",
             columnsorder: 4,
-            columntitle: "currency"
+            columntitle: "currency",
+            sortorder: 'none'
           },
           {
             columnkey: "deffered",
             columnsorder: 5,
-            columntitle: "status"
+            columntitle: "status",
+            sortorder: 'none'
           }
         ];
         this.paymentsService

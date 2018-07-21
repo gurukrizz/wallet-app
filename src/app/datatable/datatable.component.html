@@ -3,8 +3,10 @@
         <div *ngIf="selectable" class="thd">
             <span class="thd-data">Select</span>
         </div>
-        <div class="thd" *ngFor="let setting of tablecolumnssettings">
-            <span class="thd-data">{{setting.columntitle}}</span>
+        <div class="thd" id="{{setting.columnkey + '_outer'}}" (click)="onColumnHeaderClick($event)" *ngFor="let setting of tablecolumnssettings">
+            <span id="{{setting.columnkey + '_inner' }}" class="thd-data">{{setting.columntitle + ' '}}</span>
+            <img *ngIf="setting.sortorder === 'asc'" src="../../assets/ascendingicon.png" alt="" class="sort-icon">
+            <img *ngIf="setting.sortorder === 'dsc'" src="../../assets/descendingicon.png" alt="" class="sort-icon">
         </div>
     </div>
 
