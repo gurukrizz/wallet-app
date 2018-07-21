@@ -19,7 +19,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const cards = [
       {
-        id:"504296232325",
+        id:504296232325,
         cardnumber: 504296232325,
         cardname: "Master Card",
         cardholdername: "Billionare",

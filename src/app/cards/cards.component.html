@@ -1,2 +1,20 @@
 <app-header></app-header>
-<p>Cards Works!</p>
+<app-details title="Card Details">
+    <div class="cards-dropdown-outer">
+        <select name="" id="" class="cards-dropdown" (change)="onSelectedCardChange($event)">
+            <option value="selectCard">
+                Select your card
+            </option>
+            <option value={{card.cardnumber}} *ngFor="let card of cards">
+                {{card.cardnumber}}
+            </option>
+        </select>
+    </div>
+    <div *ngIf="showSelectedCard" class="card-details">
+        <app-datafield text="{{selectedCard.cardnumber}}" label="Card Number:"></app-datafield>
+        <app-datafield text="{{selectedCard.cardname}}" label="Card Name:"></app-datafield>
+        <app-datafield text="{{selectedCard.cardholdername}}" label="Card Holder Name:"></app-datafield>
+        <app-datafield text="{{selectedCard.expirydate}}" label="Expiry Date:"></app-datafield>
+    </div>
+    <app-datatable *ngIf="showSelectedCard" [datas]="selectedCardPayments" [tablecolumnssettings]="tableColumnSettings"></app-datatable>
+</app-details>

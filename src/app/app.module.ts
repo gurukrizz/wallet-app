@@ -12,6 +12,9 @@ import { AccountsComponent } from "./accounts/accounts.component";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./in-memory-data.service";
+import { DetailsComponent } from './details/details.component';
+import { DatafieldComponent } from './datafield/datafield.component';
+import { DatatableComponent } from './datatable/datatable.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { InMemoryDataService } from "./in-memory-data.service";
     HomeComponent,
     AboutComponent,
     CardsComponent,
-    AccountsComponent
+    AccountsComponent,
+    DetailsComponent,
+    DatafieldComponent,
+    DatatableComponent
   ],
   imports: [
     BrowserModule,

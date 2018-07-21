@@ -1,0 +1,20 @@
+<div class="table">
+    <div class="th">
+        <div *ngIf="selectable" class="thd">
+            <span class="thd-data">Select</span>
+        </div>
+        <div class="thd" *ngFor="let setting of tablecolumnssettings">
+            <span class="thd-data">{{setting.columntitle}}</span>
+        </div>
+    </div>
+
+    <div class="tr" *ngFor="let data of datas; index as i">
+        <div *ngIf="selectable" class="td">
+            <input class="select-checkbox" type="checkbox" name="" (change)="onSelectionChange($event)" id={{i}}>
+        </div>
+        <div class="td" *ngFor="let setting of tablecolumnssettings">
+            <span class="td-data">{{data[setting.columnkey]}}</span>
+        </div>
+    </div>
+
+</div>

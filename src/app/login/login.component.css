@@ -46,12 +46,16 @@
 }
 
 .login-button{
+  outline: none;
   width: 100%;
-  background-color: #ffffc7;
+  background-color: #ffffad;
   margin-top: 50px;
   margin-bottom: 10px;
   height: 40px;
   border: none;
+}
+.login-button:hover{
+  background-color: #e5e5c9;
 }
 
 .login-forgot-password{

@@ -1,0 +1,21 @@
+.card-details{
+    height: 100px;
+    width: 100%;
+}
+
+.cards-dropdown-outer{
+    padding: 10px;
+    height: 70px;
+    width: auto;
+    font-family: "Open Sans", sans-serif;
+}
+.cards-dropdown{
+    height: 50px;
+    width: 300px;
+    color: #252525;
+    border: 1px solid #dedede;
+    font-family: "Open Sans", sans-serif;
+    font-size: 20px;
+    outline: none;
+    border-radius: none;
+}

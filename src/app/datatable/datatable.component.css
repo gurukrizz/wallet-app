@@ -1,0 +1,54 @@
+.table {
+  display: table;
+  width: 99%;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.th {
+  display: table-row;
+  height: 50px;
+}
+.tr {
+  display: table-row;
+  height: 50px;
+}
+
+.tr:nth-child(even) {
+  background-color: #fbfbfb;
+}
+
+.tr:nth-child(odd) {
+  background-color: #f7f7f7;
+}
+
+.td {
+  display: table-cell;
+  padding: 10px;
+  height: 10px;
+}
+.thd {
+  display: table-cell;
+  padding: 10px;
+  height: 10px;
+  background-color: #f1f1f1;
+}
+
+.thd-data {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
+  line-height: 50px;
+}
+.td-data {
+  font-family: "Open Sans", sans-serif;
+  line-height: 40px;
+  font-size: 12px;
+}
+
+.select-checkbox{
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+}

@@ -1,35 +1,33 @@
-import { Injectable } from '@angular/core';
-import { Payment } from './payment';
-import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { Payment } from "./payment";
+import { Observable, of } from "rxjs";
+import { MessageService } from "./message.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { catchError, map, tap } from "rxjs/operators";
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
-@Injectable(
-  {
-    providedIn: 'root'
-  }
-)
+@Injectable({
+  providedIn: "root"
+})
 export class PaymentsService {
+  private paymentsUrl = "api/payments"; // URL to web api
 
-  private paymentsUrl = 'api/payments';  // URL to web api
-
-  constructor(private http: HttpClient,
-    private messageService: MessageService) { }
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   /**
-  * Handle Http operation that failed.
-  * Let the app continue.
-  * @param operation - name of the operation that failed
-  * @param result - optional value to return as the observable result
-  */
-  private handleError<T>(operation = 'operation', result?: T) {
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
@@ -43,20 +41,18 @@ export class PaymentsService {
 
   /** Log a PaymentService message with the MessageService */
   private log(message: string) {
-    this.messageService.add('HeroService: ' + message);
+    this.messageService.add("HeroService: " + message);
   }
 
   /**
    * Get HTTP Call to get the Payments.
    */
   getPayments(): Observable<Payment[]> {
-    return this.http.get<Payment[]>(this.paymentsUrl)
-      .pipe(
+    return this.http.get<Payment[]>(this.paymentsUrl).pipe(
       tap(Payments => this.log(`fetched Payments`)),
-      catchError(this.handleError('getPayments', []))
-      );
+      catchError(this.handleError("getPayments", []))
+    );
   }
-
 
   /** GET Payment by Paymentnumber. Will 404 if id not found */
   getPayment(paymentId: number): Observable<Payment> {
@@ -71,27 +67,42 @@ export class PaymentsService {
   updatePayment(payment: Payment): Observable<any> {
     return this.http.put(this.paymentsUrl, payment, httpOptions).pipe(
       tap(_ => this.log(`updated Payment id=${payment.paymentid}`)),
-      catchError(this.handleError<any>('updatePayment'))
+      catchError(this.handleError<any>("updatePayment"))
     );
   }
 
   /** POST: add a new Payment details to the server */
   addPayment(payment: Payment): Observable<Payment> {
     return this.http.post<Payment>(this.paymentsUrl, payment, httpOptions).pipe(
-      tap((payment: Payment) => this.log(`added Payment with Payment number=${payment.paymentid}`)),
-      catchError(this.handleError<Payment>('addPayment'))
+      tap((payment: Payment) =>
+        this.log(`added Payment with Payment number=${payment.paymentid}`)
+      ),
+      catchError(this.handleError<Payment>("addPayment"))
     );
   }
 
   /** DELETE: delete the Payment from the server */
   deletePayment(payment: Payment | number): Observable<Payment> {
-    const paymentId = typeof payment === 'number' ? payment : payment.paymentid;
+    const paymentId = typeof payment === "number" ? payment : payment.paymentid;
     const url = `${this.paymentsUrl}/${paymentId}`;
 
     return this.http.delete<Payment>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted Payment number=${paymentId}`)),
-      catchError(this.handleError<Payment>('deletePayment'))
+      catchError(this.handleError<Payment>("deletePayment"))
     );
   }
 
+  /**
+   * @param: CardNumber of type number to get the payment transfer for the card.
+   * @return: Array of payment of type payment for the given card
+   */
+  getCardPayment(cardnumber: number): Observable<Payment[]> {
+    return this.http.get<Payment[]>(this.paymentsUrl).pipe(
+      tap(payments => {
+        this.log(`fetched Payments`);
+        payments = payments.filter((payment) => payment.cardnumber === cardnumber);
+      }),
+      catchError(this.handleError("getPayments", []))
+    );
+  }
 }
