@@ -1,22 +1,37 @@
-<div class="table">
-    <div class="th">
-        <div *ngIf="selectable" class="thd">
-            <span class="thd-data">Select</span>
-        </div>
-        <div class="thd" id="{{setting.columnkey + '_outer'}}" (click)="onColumnHeaderClick($event)" *ngFor="let setting of tablecolumnssettings">
-            <span id="{{setting.columnkey + '_inner' }}" class="thd-data">{{setting.columntitle + ' '}}</span>
-            <img *ngIf="setting.sortorder === 'asc'" src="../../assets/ascendingicon.png" alt="" class="sort-icon">
-            <img *ngIf="setting.sortorder === 'dsc'" src="../../assets/descendingicon.png" alt="" class="sort-icon">
+<div class="table-container">
+    <div class="table-toolbar">
+        <span class="table-title">{{tabletitle}}</span>
+        <div class="table-actions">
+            <button *ngIf="enableVisualEditor" class="table-settings" (click)="showVisualEditor = !showVisualEditor">
+                <img src="../../assets/settingsicon.png" alt="Table Settings">
+            </button>
         </div>
     </div>
+    <div class="table-outer">
+        <div class="table">
+            <div class="th">
+                <div *ngIf="selectable" class="thd">
+                    <span class="thd-data">Select</span>
+                </div>
+                <div class="thd" id="{{setting.columnkey + '_outer'}}" (click)="onColumnHeaderClick($event)" *ngFor="let setting of tablecolumnssettings; index as settingIndex">
+                    <span id="{{setting.columnkey + '_inner' }}" class="thd-data">{{setting.columntitle + ' '}}</span>
+                    <img *ngIf="setting.sortorder === 'asc'" src="../../assets/ascendingicon.png" alt="" class="sort-icon">
+                    <img *ngIf="setting.sortorder === 'dsc'" src="../../assets/descendingicon.png" alt="" class="sort-icon">
+                    <img *ngIf="showVisualEditor" class="visual-editor-icons" src="../../assets/removeicon.png" id="{{settingIndex + '_removecolumn' }}"
+                        (click)="removeColumn($event)" alt="column remove">
+                    <img *ngIf="showVisualEditor" class="visual-editor-icons" src="../../assets/dragicon.png" alt="column remove">
+                </div>
+            </div>
 
-    <div class="tr" *ngFor="let data of datas; index as i">
-        <div *ngIf="selectable" class="td">
-            <input class="select-checkbox" type="checkbox" name="" (change)="onSelectionChange($event)" id={{i}}>
-        </div>
-        <div class="td" *ngFor="let setting of tablecolumnssettings">
-            <span class="td-data">{{data[setting.columnkey]}}</span>
+            <div class="tr" *ngFor="let data of datas; index as i">
+                <div *ngIf="selectable" class="td">
+                    <input class="select-checkbox" type="checkbox" name="" (change)="onSelectionChange($event)" id={{i}}>
+                </div>
+                <div class="td" *ngFor="let setting of tablecolumnssettings">
+                    <span class="td-data">{{data[setting.columnkey]}}</span>
+                </div>
+            </div>
+
         </div>
     </div>
-
 </div>

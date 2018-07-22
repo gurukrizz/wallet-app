@@ -47,13 +47,68 @@
   font-size: 12px;
 }
 
-.select-checkbox{
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
+.select-checkbox {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
 }
 
-.sort-icon{
+.sort-icon {
   height: 10px;
   width: 10px;
+}
+
+.table-outer {
+  height: 500px;
+  width: 100%;
+  overflow: scroll;
+}
+.table-container{
+  width: 100%;
+}
+.table-toolbar {
+  height: 50px;
+  width: 99%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.table-title{
+  line-height: 50px;
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 900;
+  float: left;
+}
+.table-actions{
+  float: right;
+  height: 50px;
+}
+.table-settings{
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  line-height: 50px;
+  cursor: pointer;
+}
+
+.table-settings:hover img{
+  filter: brightness(0) invert(.5);
+}
+
+.visual-editor-icons{
+  height: 16px;
+  width: 16px;
+  margin: 5px;
+  border-radius: 50%;
+  vertical-align: middle;
+  padding: 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.visual-editor-icons:hover {
+  background-color: #ffffad;
 }

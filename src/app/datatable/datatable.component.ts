@@ -9,15 +9,29 @@ import { MessageService } from "../message.service";
 })
 export class DatatableComponent implements OnInit {
   @Input() datas: any[];
+  @Input() enableVisualEditor: boolean = false;
+  @Input() tabletitle: string;
   @Input() tablecolumnssettings: TableColumnSetting[];
   @Input() selectable: boolean = false;
+  public showVisualEditor: boolean = false;
   public selectdatasindexs: number[] = [];
   private originalData: any[];
+  private originalSettings: TableColumnSetting[];
 
   constructor(private messageService: MessageService) {}
 
   ngOnInit() {
+    /**This is done to take backup of the original data in order replace sorted or deleted data for the first time
+    when component is created.*/
     this.originalData = JSON.parse(JSON.stringify(this.datas));
+  }
+
+  /**
+   * This function is to detect changes in the datas and reset the original data to the new one.
+   */
+  ngOnChanges(){
+    this.originalData = JSON.parse(JSON.stringify(this.datas));
+    this.originalSettings = JSON.parse(JSON.stringify(this.tablecolumnssettings));
   }
 
   /**
@@ -40,10 +54,10 @@ export class DatatableComponent implements OnInit {
         this.setColumnSettingsSortOrder("asc", propertyKey);
       } else if (selectColumnSetting.sortorder === "asc") {
         this.sortData("dsc", propertyKey);
-        this.setColumnSettingsSortOrder("dsc", propertyKey)
+        this.setColumnSettingsSortOrder("dsc", propertyKey);
       } else {
         this.sortData("none", propertyKey);
-        this.setColumnSettingsSortOrder("none", propertyKey)
+        this.setColumnSettingsSortOrder("none", propertyKey);
       }
     } else {
       this.messageService.add(
@@ -52,6 +66,20 @@ export class DatatableComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to remove the columns when remove column button is clicked.
+   * @param oEvent Click event object
+   */
+  removeColumn(oEvent): void{
+    let columnIndex = oEvent.target.id.split('_')[0];
+    this.tablecolumnssettings.splice(columnIndex,1);
+  }
+
+  /**
+   * Function to set the sort order proper of the column setting and reset other column settings to none.
+   * @param sortOrder Sort order for the column.
+   * @param propertyKey property that identifies the columns in table.
+   */
   setColumnSettingsSortOrder(sortOrder: string, propertyKey: string) {
     this.tablecolumnssettings.map(setting => {
       if (setting.columnkey === propertyKey) {

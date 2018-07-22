@@ -30,6 +30,10 @@ export class CardsComponent implements OnInit {
     this.cardsService.getCards().subscribe(cards => (this.cards = cards));
   }
 
+  /**
+   * 
+   * @param oEvent Change event object from select control when card selection changed
+   */
   onSelectedCardChange(oEvent): void {
     if (oEvent.target.value === "selectCard") {
       this.showSelectedCard = false;
@@ -43,41 +47,38 @@ export class CardsComponent implements OnInit {
             columnkey: "paymentid",
             columnsorder: 1,
             columntitle: "transaction number",
-            sortorder: 'none'
+            sortorder: "none"
           },
           {
             columnkey: "merchantname",
             columnsorder: 2,
             columntitle: "merchant name",
-            sortorder: 'none'
+            sortorder: "none"
           },
           {
             columnkey: "amountpaid",
             columnsorder: 3,
             columntitle: "amount",
-            sortorder: 'none'
+            sortorder: "none"
           },
           {
             columnkey: "currencycode",
             columnsorder: 4,
             columntitle: "currency",
-            sortorder: 'none'
+            sortorder: "none"
           },
           {
             columnkey: "deffered",
             columnsorder: 5,
             columntitle: "status",
-            sortorder: 'none'
+            sortorder: "none"
           }
         ];
-        this.paymentsService
-          .getPayments()
-          .subscribe(
-            payments =>
-              (this.selectedCardPayments = payments.filter(
-                payment => payment.cardnumber === this.selectedCard.cardnumber
-              ))
+        this.paymentsService.getPayments().subscribe(payments => {
+          this.selectedCardPayments = payments.filter(
+            payment => payment.cardnumber === this.selectedCard.cardnumber
           );
+        });
       });
     }
   }

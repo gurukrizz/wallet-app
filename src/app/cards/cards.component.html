@@ -6,7 +6,7 @@
                 Select your card
             </option>
             <option value={{card.cardnumber}} *ngFor="let card of cards">
-                {{card.cardnumber}}
+                {{card.cardnumber + '-' + card.cardname}}
             </option>
         </select>
     </div>
@@ -16,5 +16,5 @@
         <app-datafield text="{{selectedCard.cardholdername}}" label="Card Holder Name:"></app-datafield>
         <app-datafield text="{{selectedCard.expirydate}}" label="Expiry Date:"></app-datafield>
     </div>
-    <app-datatable *ngIf="selectedCardPayments.length > 0" [datas]="selectedCardPayments" [tablecolumnssettings]="tableColumnSettings"></app-datatable>
+    <app-datatable *ngIf="selectedCardPayments.length > 0" enableVisualEditor="true" tabletitle="Card Payments" [datas]="selectedCardPayments" [tablecolumnssettings]="tableColumnSettings"></app-datatable>
 </app-details>

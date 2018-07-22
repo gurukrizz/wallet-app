@@ -16,6 +16,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   *  Function to login into the app using credentials.
+   * @param username Username  from the form to login
+   * @param password Password  from the form to login
+   */
   onLogin(username, password): void {
     /*
     * We are saving the user id in the local storage to check user is authenticated to access the information.
