@@ -45,31 +45,31 @@ export class CardsComponent implements OnInit {
         this.tableColumnSettings = [
           {
             columnkey: "paymentid",
-            columnsorder: 1,
+            columnsorder: 2,
             columntitle: "transaction number",
             sortorder: "none"
           },
           {
             columnkey: "merchantname",
-            columnsorder: 2,
+            columnsorder: 1,
             columntitle: "merchant name",
             sortorder: "none"
           },
           {
             columnkey: "amountpaid",
-            columnsorder: 3,
+            columnsorder: 0,
             columntitle: "amount",
             sortorder: "none"
           },
           {
             columnkey: "currencycode",
-            columnsorder: 4,
+            columnsorder: 3,
             columntitle: "currency",
             sortorder: "none"
           },
           {
             columnkey: "deffered",
-            columnsorder: 5,
+            columnsorder: 4,
             columntitle: "status",
             sortorder: "none"
           }

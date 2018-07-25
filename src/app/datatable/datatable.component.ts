@@ -22,16 +22,64 @@ export class DatatableComponent implements OnInit {
 
   ngOnInit() {
     /**This is done to take backup of the original data in order replace sorted or deleted data for the first time
-    when component is created.*/
+     when component is created.*/
     this.originalData = JSON.parse(JSON.stringify(this.datas));
+    this.sortColumnSettings();
   }
 
   /**
    * This function is to detect changes in the datas and reset the original data to the new one.
    */
-  ngOnChanges(){
+  ngOnChanges() {
     this.originalData = JSON.parse(JSON.stringify(this.datas));
-    this.originalSettings = JSON.parse(JSON.stringify(this.tablecolumnssettings));
+    this.originalSettings = JSON.parse(
+      JSON.stringify(this.tablecolumnssettings)
+    );
+    this.sortColumnSettings();
+  }
+
+  /**
+   * This functiont to perform sorting when drag started.
+   * @param oEvent This is onDragStarte Event in the column header.
+   */
+  onColumnDragStart(oEvent): void {
+    oEvent.dataTransfer.setData("dragiconid", oEvent.target.id);
+  }
+
+  /**
+   * This functiont to perform sorting when drag started.
+   * @param oEvent This is onDragOver Event in the column header.
+   */
+  onColumnDragOver(oEvent): void {
+    oEvent.preventDefault();
+  }
+
+  /**
+   * This functiont to perform something when drag started.
+   * @param oEvent This is onDrop column Event in the column header.
+   */
+  onColumnDrop(oEvent): void {
+    oEvent.preventDefault();
+    let draggedColumnIndex = +oEvent.dataTransfer
+      .getData("dragiconid")
+      .split("_")[1];
+    let dropColumnIndex = +oEvent.target.id.split("_")[2];
+    if (draggedColumnIndex < dropColumnIndex) {
+      for (let i = draggedColumnIndex + 1; i <= dropColumnIndex; i++) {
+        this.tablecolumnssettings[i].columnsorder -= 2;
+      }
+      this.tablecolumnssettings[
+        draggedColumnIndex
+      ].columnsorder = dropColumnIndex;
+    } else if (draggedColumnIndex > dropColumnIndex) {
+      for (let i = dropColumnIndex ; i < draggedColumnIndex; i++) {
+        this.tablecolumnssettings[i].columnsorder += 2;
+      }
+      this.tablecolumnssettings[
+        draggedColumnIndex
+      ].columnsorder = dropColumnIndex;
+    }
+    this.sortColumnSettings();
   }
 
   /**
@@ -67,12 +115,28 @@ export class DatatableComponent implements OnInit {
   }
 
   /**
+   * This function is to sort the column when rendering the table.
+   */
+  sortColumnSettings(): void {
+    function compareSettings(
+      column1: TableColumnSetting,
+      column2: TableColumnSetting
+    ) {
+      if (column1.columnsorder < column2.columnsorder) return -1;
+      if (column1.columnsorder > column2.columnsorder) return 1;
+      return 0;
+    }
+
+    this.tablecolumnssettings = this.tablecolumnssettings.sort(compareSettings);
+  }
+
+  /**
    * Function to remove the columns when remove column button is clicked.
    * @param oEvent Click event object
    */
-  removeColumn(oEvent): void{
-    let columnIndex = oEvent.target.id.split('_')[0];
-    this.tablecolumnssettings.splice(columnIndex,1);
+  removeColumn(oEvent): void {
+    let columnIndex = oEvent.target.id.split("_")[0];
+    this.tablecolumnssettings.splice(columnIndex, 1);
   }
 
   /**

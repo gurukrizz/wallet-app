@@ -16,5 +16,5 @@
         <app-datafield text="{{selectedCard.cardholdername}}" label="Card Holder Name:"></app-datafield>
         <app-datafield text="{{selectedCard.expirydate}}" label="Expiry Date:"></app-datafield>
     </div>
-    <app-datatable *ngIf="selectedCardPayments.length > 0" enableVisualEditor="true" tabletitle="Card Payments" [datas]="selectedCardPayments" [tablecolumnssettings]="tableColumnSettings"></app-datatable>
+    <app-datatable *ngIf="selectedCardPayments.length > 0" selectable="true" enableVisualEditor="true" tabletitle="Card Payments" [datas]="selectedCardPayments" [tablecolumnssettings]="tableColumnSettings"></app-datatable>
 </app-details>

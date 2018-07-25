@@ -2,8 +2,14 @@
     <div class="table-toolbar">
         <span class="table-title">{{tabletitle}}</span>
         <div class="table-actions">
+            <button *ngIf="enableVisualEditor" class="table-settings">
+                <img src="../../assets/add.png" alt="Add Item">
+            </button>
+            <button *ngIf="enableVisualEditor" class="table-settings">
+                <img src="../../assets/delete.png" alt="Remove Item">
+            </button>
             <button *ngIf="enableVisualEditor" class="table-settings" (click)="showVisualEditor = !showVisualEditor">
-                <img src="../../assets/settingsicon.png" alt="Table Settings">
+                <img src="../../assets/settings.png" alt="Table Settings">
             </button>
         </div>
     </div>
@@ -13,13 +19,13 @@
                 <div *ngIf="selectable" class="thd">
                     <span class="thd-data">Select</span>
                 </div>
-                <div class="thd" id="{{setting.columnkey + '_outer'}}" (click)="onColumnHeaderClick($event)" *ngFor="let setting of tablecolumnssettings; index as settingIndex">
-                    <span id="{{setting.columnkey + '_inner' }}" class="thd-data">{{setting.columntitle + ' '}}</span>
+                <div (drop)="onColumnDrop($event)" (dragover)="onColumnDragOver($event)" class="thd" id="{{setting.columnkey + '_outer_' + settingIndex}}" (click)="onColumnHeaderClick($event)" *ngFor="let setting of tablecolumnssettings; index as settingIndex">
+                    <span id="{{setting.columnkey + '_inner_' + settingIndex}}" class="thd-data">{{setting.columntitle + ' '}}</span>
                     <img *ngIf="setting.sortorder === 'asc'" src="../../assets/ascendingicon.png" alt="" class="sort-icon">
                     <img *ngIf="setting.sortorder === 'dsc'" src="../../assets/descendingicon.png" alt="" class="sort-icon">
                     <img *ngIf="showVisualEditor" class="visual-editor-icons" src="../../assets/removeicon.png" id="{{settingIndex + '_removecolumn' }}"
                         (click)="removeColumn($event)" alt="column remove">
-                    <img *ngIf="showVisualEditor" class="visual-editor-icons" src="../../assets/dragicon.png" alt="column remove">
+                    <img *ngIf="showVisualEditor" id="{{'dragIcon_' + settingIndex }}" class="visual-editor-icons" draggable="true" (dragstart)="onColumnDragStart($event)"  src="../../assets/dragicon.png" alt="column remove">
                 </div>
             </div>
 
